@@ -1,3 +1,9 @@
+import Box from '@mui/material/Box';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { List } from 'react-window';
+
 import { useState } from 'react';
 
 function Square({ value, onSquareClick }) {
@@ -23,13 +29,17 @@ function Board({ xIsNext, squares, onPlay }) {
     }
 
     const winner = calculateWinner(squares);
+    const isDraw = !winner && squares.every((square) => square !== null);
+
     let status;
     if (winner) {
         status = 'Winner: ' + winner;
+    }
+    else if (isDraw) {
+        status = 'Draw!';
     } else {
         status = 'Next player: ' + (xIsNext ? 'X' : 'O');
     }
-
     return (
         <>
             <div className="status">{status}</div>
@@ -68,6 +78,12 @@ export default function Game() {
         setCurrentMove(nextMove);
     }
 
+
+    function handleRestart() {
+        setHistory([Array(9).fill(null)]);
+        setCurrentMove(0);
+    }
+
     const moves = history.map((squares, move) => {
         let description;
         if (move > 0) {
@@ -84,8 +100,12 @@ export default function Game() {
 
     return (
         <div className="game">
+            <title>Tic-Tac-Toe</title>
+            <link rel="icon" href="/public/images.jpeg" />
             <div className="game-board">
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+
+                <button onClick={() => handleRestart()} style={{marginTop: '3px'}}>Restart</button>
             </div>
             <div className="game-info">
                 <ol>{moves}</ol>
