@@ -8,8 +8,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts start",
-    "build": "SET GENERATE_SOURCEMAP=false && react-scripts docs",
-    "build:dev": "GENERATE_SOURCEMAP=true react-scripts start"
+    "build": "echo docs",
+    "build:win": "SET GENERATE_SOURCEMAP=false && react-scripts docs",
+    "build:dev:win": "SET GENERATE_SOURCEMAP=true && react-scripts start"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
